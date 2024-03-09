@@ -1,0 +1,5 @@
+AdventureGame to do lists
+1-Battle location da ki tüm canavarlar ölmeden
+ ödül item ı alamayacak
+2- Fight ta ilk vuran %50 olasılıkla rastgele
+ olacak oyuncu veya canavar 
