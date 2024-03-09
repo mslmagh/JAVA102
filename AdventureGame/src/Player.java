@@ -20,6 +20,7 @@ public class Player {
     public static final String ANSI_UNDERLINE = "\u001B[4m";
     public static final String ANSI_ITALIC = "\u001B[3m";
 
+    public static String[] awards = new String[] { " ", "", "", "" };
     private int damage;
     private int health;
     private int defaultHealth;
@@ -107,7 +108,7 @@ public class Player {
     }
 
     void myCharacter() {
-        System.out.println(ANSI_ITALIC +"Your Character: " + this.getCharName() +
+        System.out.println(ANSI_ITALIC + "Your Character: " + this.getCharName() +
                 " \t Damage: " + this.getTotalDamage() +
                 " \t Health: " + this.getHealth() +
                 " \t Money: " + this.getMoney());

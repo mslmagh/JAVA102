@@ -1,3 +1,5 @@
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Scanner;
 
 class Game {
@@ -13,8 +15,14 @@ class Game {
 
         System.out.println("Lütfen bir karakter seçin: ");
         player.selectChar();
+        String[] str = new String[] { " ", "firewood", "food", "water" };
         while (true) {
             Location location;
+            if (Arrays.equals(player.awards, str)) {
+                System.out.println(player.ANSI_GREEN + "You collect all the prizes and win the game, Congratulations!!"
+                        + player.ANSI_RESET);
+                break;
+            }
             System.out.println(
                     player.ANSI_BLACK + player.ANSI_BOLD + "-----------The zones-----------" + player.ANSI_RESET);
             System.out.println(player.ANSI_GREEN + "1 - Safe House --> There are no enemies here" + player.ANSI_RESET);
@@ -28,6 +36,7 @@ class Game {
             System.out.println(player.ANSI_RED + "6 - Mine --> Award<random item> Be careful, you might run into snakes"
                     + player.ANSI_RESET);
             System.out.println("0 - Out --> Finish the game\n");
+
             System.out.print("Please choose what location dou you want to go: ");
             int selectLoc = scan.nextInt();
             switch (selectLoc) {
@@ -61,6 +70,7 @@ class Game {
                 System.out.println("GAME OVER!");
                 break;
             }
+
         }
 
     }

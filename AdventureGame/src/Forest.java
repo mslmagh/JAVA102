@@ -1,6 +1,6 @@
 public class Forest extends BattleLoc {
 
     public Forest(Player player) {
-        super(player, "Forest", new Vampire(),"firewood", 3);
+        super(player, 1, "Forest", new Vampire(),"firewood", 3);
     }
 }

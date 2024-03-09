@@ -3,12 +3,22 @@ public abstract class BattleLoc extends Location {
     private String award;
     private int maxMonster;
     private int monsterNumber;
+    private int id;
 
-    public BattleLoc(Player player, String name, Monster monster, String award, int maxMonster) {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public BattleLoc(Player player, int id, String name, Monster monster, String award, int maxMonster) {
         super(player, name);
         this.monster = monster;
         this.award = award;
         this.maxMonster = maxMonster;
+        this.id = id;
     }
 
     @Override
@@ -22,6 +32,7 @@ public abstract class BattleLoc extends Location {
         if (selectCase.equalsIgnoreCase("e")) {
             if (combat(monsterNumber)) {
                 System.out.println("You won all of the enemies");
+
             }
         }
 
@@ -74,6 +85,8 @@ public abstract class BattleLoc extends Location {
             System.out.println("You defeated the enemies ");
             System.out.println("you won " + monster.getMoney() + " money");
             this.getPlayer().setMoney(monster.getMoney() + this.getPlayer().getMoney());
+            this.getPlayer().awards[this.getId()] = this.getAward();
+            System.out.println("You won " + this.getAward() + " award");
             System.out.println("Your current money: " + this.getPlayer().getMoney());
         }
 
@@ -83,7 +96,7 @@ public abstract class BattleLoc extends Location {
     public void afterHit() {
         System.out.println("-----------------------------------------");
         System.out.println("Your health: " + this.getPlayer().getHealth());
-        System.out.println(monster.getName() + " health: " + monster.getHealth() +"\n");
+        System.out.println(monster.getName() + " health: " + monster.getHealth() + "\n");
     }
 
     public void playerStats() {
