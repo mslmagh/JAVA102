@@ -54,14 +54,12 @@ class Game {
                     break;
                 default:
                     location = null;
-                    System.out.println("Enter a valid value");
-            }
-            if (location == null) {
-                System.out.println("The Game Finished, come again.");
-                break;
+                    System.out.println("Entered a valid value");
+                    continue;
             }
             if (!location.onLocation()) {
                 System.out.println("GAME OVER!");
+                break;
             }
         }
 

@@ -42,11 +42,8 @@ public abstract class BattleLoc extends Location {
             while (this.getPlayer().getHealth() > 0 && this.getMonster().getHealth() > 0) {
                 System.out.print("<R>un or <F>igth: ");
                 String selectedCombat = input.nextLine();
-
                 if (selectedCombat.equalsIgnoreCase("f")) {
-
                     if (rndm == 0) {
-                        System.out.println("Random: " + rndm);
                         System.out.println("You hit to " + monster.getName());
                         monster.setHealth(monster.getHealth() - this.getPlayer().getTotalDamage());
                         afterHit();
@@ -57,7 +54,6 @@ public abstract class BattleLoc extends Location {
                             afterHit();
                         }
                     } else {
-                        System.out.println("Random: " + rndm);
                         System.out.println();
                         System.out.println(monster.getName() + " hit you");
                         this.getPlayer().setHealth(this.getPlayer().getHealth() - monster.getDamage());
@@ -68,11 +64,9 @@ public abstract class BattleLoc extends Location {
                             afterHit();
                         }
                     }
-
                 } else {
                     return false;
                 }
-
             }
         }
         if (monster.getHealth() <= 0) {

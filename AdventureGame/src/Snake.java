@@ -4,6 +4,8 @@ public class Snake extends Monster {
 
     public Snake() {
         super(4, "Snake", generateRandomDamage(), 12, 5);
+        super.setDefHealth(12);
+
     }
 
     private static int generateRandomDamage() {
