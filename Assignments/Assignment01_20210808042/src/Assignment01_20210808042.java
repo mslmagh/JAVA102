@@ -1,30 +1,52 @@
+/**
+ * @author Müslüm Agah
+ * @since 11.03.2024
+ */
+
 public class Assignment01_20210808042 {
     public static void main(String[] args) throws Exception {
-        System.out.println("deneme");
-        Course course = new Course("CSEtrry", 102, "Computer", "sjsj", 2);
-        System.out.println("test");
-        Course course2 = new Course("CSE455", 102, "Computer", "sjsj", 2);
-        System.out.println(course.toString());
-        Person person = new Person("Muslum", "mslmagh@gmail.com", 33247683422L, "CSEefew");
-        System.out.println(person.toString());
-        person.setDepartmentCode("fjkfdsjf");
-        System.out.println(person.getDepartmentCode());
+        System.out.println(Math.pow(8, 0));
+        Course c = new Course("CSE", 102, "Programming 2", "Introduction to OOP", 6);
+        Course course = new Course("CSE", 101, "Computer Programming 1", "Introduction to Programming", 6);
+        Student student = new Student("Can DO", "cando@akdenizedu.tr", 123L, "CSE");
+        GradStudent gradStudent = new GradStudent(null, "me@somewhere.com", 3, "cse", 0, "try");
+        System.out.println(c.courseCode() + " - " + c.getTitle());
+        System.out.println(c.toString());
+        Teacher t = new Teacher("Joseph LEDET", "josephledet@akdenizedu.tr", 123L, "CSE", 1);
+        System.out.println(t);
+        Student s = new Student("Test STUDENT", "me@somewhere.com", 456L, "CSE");
+        System.out.println(s);
+        s.passCourse(c);
+        System.out.println(s.getAKTS());
+        System.out.println("------");
+        t.setEmail("22@ogr.com");
+        System.out.println(t.getEmail());
+        gradStudent.setRank(3);
+        gradStudent.getLevel();
+        student.passCourse(course);
+        course.setCourseNumber(course.getCourseNumber() + 10);
+        System.out.println(student);
+        System.out.println(course);
+        student.passCourse(course);
+        course.setCourseNumber(course.getCourseNumber() - 10);
+        System.out.println(course);
+        System.out.println(student);
     }
 }
 
 class Course {
     private String departmentCode;
     private int courseNumber;
-    private String tittle;
+    private String title;
     private String description;
-    private final int AKTS;
+    private int AKTS;
 
-    public Course(String departmentCode, int courseNumber, String tittle, String description, int AKTS) {
-        this.departmentCode = departmentCode;
-        this.courseNumber = courseNumber;
-        this.tittle = tittle;
-        this.description = description;
-        this.AKTS = AKTS;
+    public Course(String departmentCode, int courseNumber, String title, String description, int AKTS) {
+        setDepartmentCode(departmentCode);
+        setCourseNumber(courseNumber);
+        setTitle(title);
+        setDescription(description);
+        setAKTS(AKTS); 
     }
 
     public String getDepartmentCode() {
@@ -34,6 +56,8 @@ class Course {
     public void setDepartmentCode(String departmentCode) {
         if ((departmentCode.length() == 3) || (departmentCode.length() == 4))
             this.departmentCode = departmentCode;
+        else
+            throw new IllegalArgumentException();
     }
 
     public int getCourseNumber() {
@@ -44,14 +68,16 @@ class Course {
         if ((number >= 100 && number <= 999) || (number >= 5000 && number <= 5999)
                 || (number >= 7000 && number <= 7999))
             this.courseNumber = number;
+        else
+            throw new IllegalArgumentException();
     }
 
-    public String getTittle() {
-        return tittle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -66,13 +92,19 @@ class Course {
         return AKTS;
     }
 
+    public void setAKTS(int AKTS) {
+        if(AKTS > 0)
+        this.AKTS = AKTS;
+        else throw new IllegalArgumentException();
+    }
+
     String courseCode() {
         return departmentCode + courseNumber;
     }
 
     @Override
     public String toString() {
-        return "{" + departmentCode + "}" + "{" + courseNumber + "} - " + "{" + tittle + "} " + "({" + AKTS + "})";
+        return departmentCode + courseNumber + " - " + title + " (" + AKTS + ")";
     }
 }
 
@@ -83,10 +115,10 @@ class Person {
     private String departmentCode;
 
     public Person(String name, String email, long ID, String departmentCode) {
-        this.name = name;
-        this.email = email;
-        this.ID = ID;
-        this.departmentCode = departmentCode;
+        setName(name);
+        setEmail(email);
+        setID(ID);
+        setDepartmentCode(departmentCode);
     }
 
     public String getName() {
@@ -102,7 +134,12 @@ class Person {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        String regex = "\\w+@\\w+\\.\\w+";
+        if (email.matches(regex)) {
+            this.email = email;
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     public long getID() {
@@ -120,12 +157,14 @@ class Person {
     public void setDepartmentCode(String departmentCode) {
         if ((departmentCode.length() == 3) || (departmentCode.length() == 4))
             this.departmentCode = departmentCode;
+        else
+            throw new IllegalArgumentException();
     }
 
     @Override
     public String toString() {
 
-        return "{" + name + "}" + "({" + ID + "}) -" + " {" + email + "}";
+        return name + " (" + ID + ") - " + email;
     }
 
 }
@@ -135,12 +174,14 @@ class Teacher extends Person {
 
     public Teacher(String name, String email, long ID, String departmentCode, int rank) {
         super(name, email, ID, departmentCode);
-        this.rank = rank;
+        setRank(rank);
     }
 
     public void setRank(int rank) {
         if (rank >= 1 && rank <= 4)
             this.rank = rank;
+        else
+            throw new IllegalArgumentException();
     }
 
     public String getTittle() {
@@ -154,17 +195,21 @@ class Teacher extends Person {
         else if (rank == 4)
             return "Professor";
         else
-            return "";
+            return "Undefined";
     }
 
     public void promote() {
         if (rank < 4)
             rank++;
+        else
+            throw new IllegalArgumentException();
     }
 
     public void demote() {
         if (rank > 1)
             rank--;
+        else
+            throw new IllegalArgumentException();
     }
 
     @Override
@@ -174,17 +219,15 @@ class Teacher extends Person {
 }
 
 class Student extends Person {
-
     private int AKTS;
 
-    public Student(String name, String email, long ID, String departmentCode, int AKTS) {
-        super(name, email, ID, departmentCode);
-        AKTS = 0;
-        this.AKTS = AKTS;
+    public Student(String name, String email, long number, String departmentCode) {
+        super(name, email, number, departmentCode);
+        this.AKTS = 0;
     }
 
     public int getAKTS() {
-        return AKTS;
+        return this.AKTS;
     }
 
     public void passCourse(Course course) {
@@ -194,31 +237,12 @@ class Student extends Person {
 
 class GradStudent extends Student {
     private int rank;
-
     private String thesisTopic;
 
-    public GradStudent(String name, String email, long ID, String departmentCode, int AKTS, String thesisTopic) {
-        super(name, email, ID, departmentCode, AKTS);
+    public GradStudent(String name, String email, long number, String departmentCode, int rank, String thesisTopic) {
+        super(name, email, number, departmentCode);
+        this.rank = rank;
         this.thesisTopic = thesisTopic;
-    }
-
-    public void setRank(int rank) {
-        if (rank == 1 || rank == 2 || rank == 3)
-            this.rank = rank;
-        else
-            System.out.println("ERROR: Invali value.");
-    }
-
-    public String getLevel() {
-        if (rank == 1)
-            return "Master's Student";
-        else if (rank == 2)
-            return "Doctoral Student";
-
-        else if (rank == 3)
-            return "Doctoral Candidate";
-        else
-            return "";
     }
 
     public String getThesisTopic() {
@@ -229,9 +253,23 @@ class GradStudent extends Student {
         this.thesisTopic = thesisTopic;
     }
 
-    @Override
-    public String toString() {
-        return super.toString();
+    public void setRank(int rank) {
+        if (rank > 0 && rank < 4)
+            this.rank = rank;
+        else
+            throw new IllegalArgumentException();
     }
 
+    public String getLevel() {
+        switch (this.rank) {
+            case 1:
+                return "Master's Student";
+            case 2:
+                return "Doctoral Student";
+            case 3:
+                return "Doctoral Candidate";
+            default:
+                return "Undefined";
+        }
+    }
 }

@@ -1,0 +1,2 @@
+Course--> setCourseNumber hata sınıfını kontrol et
+adddCourse metodunu kontrol et
